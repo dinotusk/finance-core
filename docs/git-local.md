@@ -24,10 +24,22 @@ Use os comandos assim:
 
 ## Usar GitHub CLI
 
-Mais facil:
+Mais facil, usando os atalhos `.cmd` para evitar bloqueio de seguranca do PowerShell:
 
 ```powershell
-.\login-github.ps1
+.\login-github.cmd
+```
+
+Depois:
+
+```powershell
+.\publicar-github.cmd
+```
+
+Se quiser usar os scripts PowerShell, rode com bypass somente para esse comando:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\login-github.ps1
 ```
 
 Ou manualmente:
