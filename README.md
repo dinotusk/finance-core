@@ -53,4 +53,5 @@ Dashboard / Google Sheets / Respostas
 - `docs/n8n-whatsapp-evo-api.md`: fluxo sugerido no n8n.
 - `docs/ios-app.md`: como instalar no iPhone.
 - `docs/github-pages.md`: como publicar pelo GitHub Pages.
+- `docs/git-local.md`: como usar o Git portátil instalado neste projeto.
 - `docs/supabase-schema.sql`: estrutura inicial de banco.
