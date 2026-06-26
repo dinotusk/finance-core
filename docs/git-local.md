@@ -31,12 +31,13 @@ Use os comandos assim:
 Depois do login:
 
 ```powershell
-.\.tools\GitHubCLI\bin\gh.exe repo create finance-core --public --source . --remote origin --push
+.\.tools\GitHubCLI\bin\gh.exe repo create finance-core --public --description "Assistente financeiro pessoal PWA"
 ```
 
-Se quiser usar o repositório alternativo `.git-real`, rode o push com o Git portatil:
+Depois rode o push com o Git portatil:
 
 ```powershell
-.\.tools\PortableGit\cmd\git.exe --git-dir=".git-real" --work-tree="." remote add origin https://github.com/SEU_USUARIO/finance-core.git
+$user = .\.tools\GitHubCLI\bin\gh.exe api user --jq .login
+.\.tools\PortableGit\cmd\git.exe --git-dir=".git-real" --work-tree="." remote add origin "https://github.com/$user/finance-core.git"
 .\.tools\PortableGit\cmd\git.exe --git-dir=".git-real" --work-tree="." push -u origin main
 ```
