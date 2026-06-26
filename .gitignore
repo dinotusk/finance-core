@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+*.log
+.local-server*.log
+finance-core-github.zip
+finance-core-github-*.zip
+.tools/
+.agents/
+.codex/
+.git-real/
+node_modules/
+dist/
+build/

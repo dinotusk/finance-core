@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Finance Core</title>
+    <meta name="theme-color" content="#132238">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Finance Core">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="assets/icon.svg">
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegação principal">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" role="img">
+              <path d="M20 4c8.8 0 16 6.4 16 14.4 0 4.1-1.9 7.8-5 10.4l.9 6.6-6.4-3.4c-1.7.5-3.5.8-5.5.8-8.8 0-16-6.4-16-14.4S11.2 4 20 4Z"></path>
+              <path d="M13 20.5h14M13 15.5h8M13 25.5h11"></path>
+            </svg>
+          </div>
+          <div>
+            <strong>Finance Core</strong>
+            <span>Assistente financeiro</span>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="Seções">
+          <button class="nav-item active" type="button" data-view-target="dashboard" title="Dashboard">
+            <span data-icon="layout"></span>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-item" type="button" data-view-target="capture" title="Capturar">
+            <span data-icon="scan"></span>
+            <span>Capturar</span>
+          </button>
+          <button class="nav-item" type="button" data-view-target="entries" title="Lançamentos">
+            <span data-icon="list"></span>
+            <span>Lançamentos</span>
+          </button>
+          <button class="nav-item" type="button" data-view-target="goals" title="Metas">
+            <span data-icon="target"></span>
+            <span>Metas</span>
+          </button>
+          <button class="nav-item" type="button" data-view-target="assistant" title="Assistente">
+            <span data-icon="message"></span>
+            <span>Assistente</span>
+          </button>
+          <button class="nav-item" type="button" data-view-target="channels" title="Canais">
+            <span data-icon="plug"></span>
+            <span>Canais</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <span class="status-dot"></span>
+          <span>Dados locais</span>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Núcleo financeiro independente</p>
+            <h1 id="view-title">Dashboard</h1>
+          </div>
+          <div class="topbar-actions">
+            <label class="period-picker">
+              <span>Mês</span>
+              <input id="periodInput" type="month">
+            </label>
+            <button class="icon-button" id="seedButton" type="button" title="Recarregar exemplos" aria-label="Recarregar exemplos">
+              <span data-icon="spark"></span>
+            </button>
+            <button class="icon-button" id="exportButton" type="button" title="Exportar CSV" aria-label="Exportar CSV">
+              <span data-icon="download"></span>
+            </button>
+          </div>
+        </header>
+
+        <main>
+          <section class="view active" id="dashboard" aria-labelledby="view-title">
+            <div class="metrics-grid" id="metricGrid"></div>
+
+            <div class="dashboard-grid">
+              <section class="panel chart-panel" aria-labelledby="categoryTitle">
+                <div class="panel-header">
+                  <div>
+                    <p class="eyebrow">Categorias</p>
+                    <h2 id="categoryTitle">Distribuição do mês</h2>
+                  </div>
+                </div>
+                <div class="chart-layout">
+                  <div class="donut" id="categoryDonut" role="img" aria-label="Distribuição por categoria"></div>
+                  <div class="legend-list" id="categoryLegend"></div>
+                </div>
+              </section>
+
+              <section class="panel" aria-labelledby="flowTitle">
+                <div class="panel-header">
+                  <div>
+                    <p class="eyebrow">Fluxo</p>
+                    <h2 id="flowTitle">Últimos 7 dias</h2>
+                  </div>
+                </div>
+                <div class="bar-chart" id="dailyBars" role="img" aria-label="Gastos dos últimos sete dias"></div>
+              </section>
+            </div>
+
+            <section class="panel" aria-labelledby="recentTitle">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Movimento</p>
+                  <h2 id="recentTitle">Lançamentos recentes</h2>
+                </div>
+                <button class="soft-button" type="button" data-view-target="entries">
+                  <span data-icon="list"></span>
+                  <span>Ver todos</span>
+                </button>
+              </div>
+              <div class="compact-list" id="recentEntries"></div>
+            </section>
+          </section>
+
+          <section class="view" id="capture" aria-labelledby="captureTitle">
+            <div class="split-layout">
+              <section class="panel" aria-labelledby="captureTitle">
+                <div class="panel-header">
+                  <div>
+                    <p class="eyebrow">Entrada rápida</p>
+                    <h2 id="captureTitle">Registrar por mensagem</h2>
+                  </div>
+                </div>
+                <form id="quickForm" class="stacked-form">
+                  <label>
+                    <span>Mensagem</span>
+                    <textarea id="quickText" rows="5" placeholder="Gastei 45 no almoço"></textarea>
+                  </label>
+                  <div class="form-actions">
+                    <button class="primary-button" type="submit">
+                      <span data-icon="plus"></span>
+                      <span>Registrar</span>
+                    </button>
+                    <button class="soft-button" type="button" id="previewParseButton">
+                      <span data-icon="scan"></span>
+                      <span>Prévia</span>
+                    </button>
+                  </div>
+                </form>
+                <div class="parse-preview" id="parsePreview" hidden></div>
+              </section>
+
+              <section class="panel" aria-labelledby="receiptTitle">
+                <div class="panel-header">
+                  <div>
+                    <p class="eyebrow">Comprovante</p>
+                    <h2 id="receiptTitle">Anexar arquivo</h2>
+                  </div>
+                </div>
+                <form id="receiptForm" class="stacked-form">
+                  <label class="file-drop">
+                    <input id="receiptFile" type="file" accept="image/*,.pdf">
+                    <span data-icon="upload"></span>
+                    <strong>Selecionar comprovante</strong>
+                    <small id="fileName">Nenhum arquivo selecionado</small>
+                  </label>
+                  <label>
+                    <span>Texto do comprovante</span>
+                    <textarea id="receiptText" rows="4" placeholder="Posto Shell R$ 120,50 Pix"></textarea>
+                  </label>
+                  <button class="primary-button" type="submit">
+                    <span data-icon="plus"></span>
+                    <span>Registrar comprovante</span>
+                  </button>
+                </form>
+              </section>
+            </div>
+
+            <section class="panel" aria-labelledby="manualTitle">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Edição</p>
+                  <h2 id="manualTitle">Lançamento manual</h2>
+                </div>
+              </div>
+              <form id="entryForm" class="entry-form">
+                <input type="hidden" id="entryId">
+                <label>
+                  <span>Tipo</span>
+                  <select id="entryType">
+                    <option value="expense">Despesa</option>
+                    <option value="income">Receita</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Data</span>
+                  <input id="entryDate" type="date" required>
+                </label>
+                <label>
+                  <span>Valor</span>
+                  <input id="entryAmount" type="number" step="0.01" min="0" required>
+                </label>
+                <label>
+                  <span>Categoria</span>
+                  <select id="entryCategory"></select>
+                </label>
+                <label>
+                  <span>Estabelecimento</span>
+                  <input id="entryMerchant" type="text" placeholder="Posto Shell">
+                </label>
+                <label>
+                  <span>Pagamento</span>
+                  <select id="entryPayment"></select>
+                </label>
+                <label class="wide">
+                  <span>Descrição</span>
+                  <input id="entryDescription" type="text" placeholder="Abastecimento">
+                </label>
+                <label>
+                  <span>Centro</span>
+                  <select id="entryContext"></select>
+                </label>
+                <div class="form-actions wide">
+                  <button class="primary-button" type="submit">
+                    <span data-icon="save"></span>
+                    <span>Salvar</span>
+                  </button>
+                  <button class="soft-button" type="button" id="clearFormButton">
+                    <span data-icon="x"></span>
+                    <span>Limpar</span>
+                  </button>
+                </div>
+              </form>
+            </section>
+          </section>
+
+          <section class="view" id="entries" aria-labelledby="entriesTitle">
+            <section class="panel" aria-labelledby="entriesTitle">
+              <div class="panel-header table-header">
+                <div>
+                  <p class="eyebrow">Registros</p>
+                  <h2 id="entriesTitle">Lançamentos</h2>
+                </div>
+                <div class="filters">
+                  <input id="searchInput" type="search" placeholder="Buscar">
+                  <select id="typeFilter">
+                    <option value="all">Todos</option>
+                    <option value="expense">Despesas</option>
+                    <option value="income">Receitas</option>
+                  </select>
+                  <select id="categoryFilter"></select>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Data</th>
+                      <th>Tipo</th>
+                      <th>Categoria</th>
+                      <th>Estabelecimento</th>
+                      <th>Centro</th>
+                      <th>Valor</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody id="entriesTable"></tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+
+          <section class="view" id="goals" aria-labelledby="goalsTitle">
+            <div class="split-layout">
+              <section class="panel" aria-labelledby="goalsTitle">
+                <div class="panel-header">
+                  <div>
+                    <p class="eyebrow">Orçamento</p>
+                    <h2 id="goalsTitle">Metas do mês</h2>
+                  </div>
+                </div>
+                <div class="goals-list" id="goalsList"></div>
+              </section>
+
+              <section class="panel" aria-labelledby="newGoalTitle">
+                <div class="panel-header">
+                  <div>
+                    <p class="eyebrow">Configurar</p>
+                    <h2 id="newGoalTitle">Nova meta</h2>
+                  </div>
+                </div>
+                <form id="goalForm" class="stacked-form">
+                  <label>
+                    <span>Categoria</span>
+                    <select id="goalCategory"></select>
+                  </label>
+                  <label>
+                    <span>Limite mensal</span>
+                    <input id="goalLimit" type="number" step="0.01" min="0" required>
+                  </label>
+                  <button class="primary-button" type="submit">
+                    <span data-icon="target"></span>
+                    <span>Salvar meta</span>
+                  </button>
+                </form>
+              </section>
+            </div>
+          </section>
+
+          <section class="view" id="assistant" aria-labelledby="assistantTitle">
+            <section class="panel assistant-panel" aria-labelledby="assistantTitle">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Perguntas</p>
+                  <h2 id="assistantTitle">Assistente</h2>
+                </div>
+              </div>
+              <div class="chat-window" id="chatWindow"></div>
+              <form id="assistantForm" class="assistant-form">
+                <input id="assistantInput" type="text" placeholder="Quanto gastei esse mês?">
+                <button class="icon-button primary-icon" type="submit" title="Enviar" aria-label="Enviar">
+                  <span data-icon="send"></span>
+                </button>
+              </form>
+              <div class="quick-prompts">
+                <button type="button" data-prompt="Quanto gastei esse mês?">Mês</button>
+                <button type="button" data-prompt="Quanto gastei com combustível?">Combustível</button>
+                <button type="button" data-prompt="Quanto ainda posso gastar?">Limite</button>
+                <button type="button" data-prompt="Como foi meu Uber este mês?">Uber</button>
+              </div>
+            </section>
+          </section>
+
+          <section class="view" id="channels" aria-labelledby="channelsTitle">
+            <div class="channels-grid">
+              <section class="panel" aria-labelledby="channelsTitle">
+                <div class="panel-header">
+                  <div>
+                    <p class="eyebrow">Entradas</p>
+                    <h2 id="channelsTitle">Canais</h2>
+                  </div>
+                </div>
+                <div class="channel-list">
+                  <article class="channel-item">
+                    <span data-icon="message"></span>
+                    <div>
+                      <strong>WhatsApp</strong>
+                      <small>EVO API ou outro provedor</small>
+                    </div>
+                    <span class="badge muted">Opcional</span>
+                  </article>
+                  <article class="channel-item">
+                    <span data-icon="layout"></span>
+                    <div>
+                      <strong>Painel web</strong>
+                      <small>Entrada principal</small>
+                    </div>
+                    <span class="badge ok">Ativo</span>
+                  </article>
+                  <article class="channel-item">
+                    <span data-icon="sheet"></span>
+                    <div>
+                      <strong>Google Sheets</strong>
+                      <small>Backup e exportação</small>
+                    </div>
+                    <span class="badge muted">Próximo</span>
+                  </article>
+                  <article class="channel-item">
+                    <span data-icon="database"></span>
+                    <div>
+                      <strong>Supabase</strong>
+                      <small>Banco principal futuro</small>
+                    </div>
+                    <span class="badge muted">Próximo</span>
+                  </article>
+                </div>
+              </section>
+
+              <section class="panel" aria-labelledby="payloadTitle">
+                <div class="panel-header">
+                  <div>
+                    <p class="eyebrow">API</p>
+                    <h2 id="payloadTitle">Payload base</h2>
+                  </div>
+                  <button class="soft-button" type="button" id="copyPayloadButton">
+                    <span data-icon="copy"></span>
+                    <span>Copiar</span>
+                  </button>
+                </div>
+                <pre class="code-block" id="payloadBlock"></pre>
+              </section>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js" defer></script>
+  </body>
+</html>
