@@ -46,6 +46,7 @@ button {
 
 .app-shell {
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
 }
@@ -904,25 +905,52 @@ td {
 
 @media (max-width: 780px) {
   .app-shell {
-    grid-template-columns: 1fr;
+    display: block;
   }
 
   .sidebar {
-    position: static;
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 30;
     height: auto;
-    padding: 14px;
-    gap: 14px;
+    gap: 0;
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(19, 34, 56, 0.94);
+    backdrop-filter: blur(16px);
+  }
+
+  .brand {
+    display: none;
   }
 
   .nav-list {
-    display: flex;
-    overflow-x: auto;
-    padding-bottom: 4px;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 6px;
+    padding-bottom: 0;
   }
 
   .nav-item {
-    width: auto;
-    flex: 0 0 auto;
+    width: 100%;
+    min-height: 58px;
+    padding: 8px 4px;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    text-align: center;
+    box-shadow: none;
+  }
+
+  .nav-item.active {
+    box-shadow: none;
+  }
+
+  .nav-item span:last-child {
+    min-width: 0;
+    font-size: 0.7rem;
+    line-height: 1.1;
+    white-space: normal;
   }
 
   .sidebar-footer {
@@ -930,7 +958,7 @@ td {
   }
 
   .workspace {
-    padding: 18px 14px 28px;
+    padding: 18px 14px calc(110px + env(safe-area-inset-bottom));
   }
 
   .topbar {
@@ -942,7 +970,19 @@ td {
   }
 
   .topbar-actions {
-    justify-content: flex-start;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    justify-content: stretch;
+  }
+
+  .period-picker {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .period-picker input {
+    min-width: 0;
   }
 
   .metrics-grid,
@@ -969,7 +1009,97 @@ td {
     justify-self: center;
   }
 
+  .legend-item,
+  .compact-entry,
+  .channel-item {
+    align-items: flex-start;
+  }
+
+  .legend-item .amount,
+  .compact-entry .amount,
+  .channel-item .badge {
+    margin-left: 0;
+  }
+
+  .compact-entry {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+
+  .compact-entry .amount {
+    grid-column: 2;
+    font-size: 0.92rem;
+  }
+
+  .bar-chart {
+    height: 224px;
+    gap: 8px;
+  }
+
+  .bar-track {
+    height: 164px;
+  }
+
+  .assistant-form {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .quick-prompts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .quick-prompts button {
+    width: 100%;
+  }
+
   .chat-message {
     max-width: 92%;
+  }
+}
+
+@media (max-width: 560px) {
+  .workspace {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .topbar {
+    margin-bottom: 18px;
+  }
+
+  .topbar h1 {
+    font-size: 1.45rem;
+  }
+
+  .metric {
+    min-height: 118px;
+    padding: 16px;
+  }
+
+  .metric strong {
+    margin-top: 14px;
+    font-size: 1.45rem;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  .panel-header {
+    margin-bottom: 14px;
+  }
+
+  .panel h2 {
+    font-size: 1rem;
+  }
+
+  .table-wrap {
+    margin: 0 -14px;
+    padding: 0 14px 2px;
+  }
+
+  .chat-window {
+    min-height: 360px;
   }
 }
