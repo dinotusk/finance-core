@@ -24,6 +24,14 @@ Use os comandos assim:
 
 ## Usar GitHub CLI
 
+Mais facil:
+
+```powershell
+.\login-github.ps1
+```
+
+Ou manualmente:
+
 ```powershell
 .\.tools\GitHubCLI\bin\gh.exe auth login
 ```
@@ -31,7 +39,7 @@ Use os comandos assim:
 Depois do login:
 
 ```powershell
-.\.tools\GitHubCLI\bin\gh.exe repo create finance-core --public --description "Assistente financeiro pessoal PWA"
+.\publicar-github.ps1
 ```
 
 Depois rode o push com o Git portatil:
